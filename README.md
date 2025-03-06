@@ -1,12 +1,12 @@
-# Java AWS Lambda + Layer 
+# Java AWS Lambda + Layer: Teste de autenticação em BD PostgreSQL
 
-Este repositório tem como objetivo fornecer um conjunto de códigos e pequenas instruções para auxiliar na criação de funções Lambda na Amazon AWS.
+Este repositório tem como objetivo fornecer um conjunto de códigos e pequenas instruções para auxiliar na criação de funções Lambda na Amazon AWS. Junto a função Lambda, que neste exemplo tem como objetivo realizar um teste de autenticação em BD PostgreSQL, este repositório fornece também instruções para a criação de um pequeno Layer que será útil para as dependências deste código.
 
-Assim como em outras linguagens de programação, para o Java, em uma função Lambda para o devido funcionamento das dependências é necessário que elas subam juntamente ao código na AWS, seja diretamente na função Lambda ou através das Layers.
+Em uma função Lambda para o devido funcionamento do código (independente de qual a linguagem de programação escolhida) é necessário que o código suba juntamente as dependências (bibliotecas, etc.), seja diretamente na função Lambda ou através das Layers.
 
 Neste projeto em especifico temos a necessidade da biblioteca "postgresql-42.5.0.jar".
 
-Aqui optaremos pelas Layers, e é por isso que temos o arquivo "java-layer.zip" (que contém o arquivo "postgresql-42.5.0.jar") anexado neste repositório.
+Aqui optaremos pelas Layers, e é por isso que temos o arquivo "[java-layer.zip](/src/main/resources/java-layer.zip)" (que contém o arquivo "postgresql-42.5.0.jar") anexado neste repositório.
 
 Caso você queira seguir com outra abordagem, que é o caso de NÃO utilizar Layer e sim subir apenas a função Lambda, descomente o trecho de código abaixo no arquivo "pom.xml":
 ```
@@ -43,7 +43,9 @@ O trecho de código acima empacota as libs junto ao código no arquivo JAR.
 
 Se atente aos logs para verificar o local do arquivo JAR.
 
-**2** - Crie a Layer utilizando o arquivo [java-layer.zip](/src/main/resources/java-layer.zip). Se tiver mais interesse em entender como funciona as Layers na AWS clique [aqui](https://docs.aws.amazon.com/lambda/latest/dg/packaging-layers.html).
+**2** - Crie a Layer utilizando o arquivo [java-layer.zip](/src/main/resources/java-layer.zip). Se tiver mais interesse em entender como funciona as Layers na AWS clique [aqui](https://docs.aws.amazon.com/lambda/latest/dg/packaging-layers.html);
 
-**3** - Crie sua função Lambda com o arquivo JAR gerado, após a criação, edite a função Lambda adicionando a Layer recém criada
+**3** - Crie sua função Lambda com o arquivo JAR gerado, após a criação, edite a função Lambda adicionando a Layer recém criada;
+
+**4** - Crie as variáveis de ambiente dentro da sua função Lambda para configuração do Banco de Dados desejado
 
