@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Resources:
+  RdsLoginPostgresLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: !Sub
+        - 'Stack ${AWS::StackName} Function ${ResourceName}'
+        - ResourceName: RdsLoginPostgresLambdaFunction
+      CodeUri: RdsLoginPostgresLambdaFunction
+      Handler: br.com.lucaszarzur.infra.lambda.App::handleRequest
+      Runtime: java17
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Timeout: 30
+      Environment:
+        Variables:
+          DB_HOST: tech.cjlcbxys0gm7.us-east-1.rds.amazonaws.com
+          DB_NAME: postgres
+          DB_PASSWORD: to-change-in-ci-cd
+          DB_USER: postgres
+      Events:
+        RdsLoginPostgresLambda:
+          Type: Api
+          Properties:
+            Path: /login
+            Method: post
+      Role: !Sub arn:aws:iam::${AWS::AccountId}:role/LabRole
+
+Outputs:
+  RdsLoginPostgresLambdaApi:
+    Description: "API Gateway endpoint URL for Prod stage for RdsLoginPostgres Lambda Function"
+    Value: !Sub "https://${RdsLoginPostgresLambdaFunction}.execute-api.${AWS::Region}.amazonaws.com/prod/login/"
+  RdsLoginPostgresLambdaFunction:
+    Description: "RdsLoginPostgres Lambda Function ARN"
+    Value: !GetAtt RdsLoginPostgresLambdaFunction.Arn

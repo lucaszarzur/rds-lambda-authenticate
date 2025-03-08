@@ -25,3 +25,7 @@ mvnw.cmd
 *.iws
 *.iml
 *.ipr
+
+### AWS ###
+.aws-sam
+*.toml
