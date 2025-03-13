@@ -87,7 +87,7 @@ sam deploy --guided
 
 **3** - As variáveis de ambiente já foram criadas dentro da sua função Lambda para configuração do Banco de Dados desejado, pois estavam no template do AWS SAM, porém, altere manualmente a variavel ```DB_PASSWORD``` que foi propositalmente versionada com a senha errada para evitar o vazamento de informações sensíveis. A dica é que essa alteração pode ser feita via AWS CLI ou via CI/CD do GitHub.
 
-**4** - Limpezade todos os recursos subidos pelo AWS SAM:
+**4** - Limpeza de todos os recursos subidos pelo AWS SAM:
 ```
 sam delete
 ```
